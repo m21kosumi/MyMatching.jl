@@ -1,5 +1,5 @@
 module MyMatching
-function my_deferred_acceptance(m_prefs::Vector{Vector{Int}},f_prefs::Vector{Vector{Int}})
+function my_deferred_acceptance(m_prefs,f_prefs)
     #初期設定
     m = length(m_prefs)
     n = length(f_prefs)
