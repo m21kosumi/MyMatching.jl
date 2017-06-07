@@ -3,8 +3,8 @@ function my_deferred_acceptance(m_prefs::Vector{Vector{Int}},f_prefs::Vector{Vec
     #初期設定
     m = length(m_prefs)
     n = length(f_prefs)
-    m_matched = Array{Int}(1,m)
-    f_matched = Array{Int}(1,n)
+    m_matched = Vector{Int}(m)
+    f_matched = Vector{Int}(n)
     m_matched[1:end] = 0 
     f_matched[1:end] = 0
 
