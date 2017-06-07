@@ -1,5 +1,5 @@
 module MyMatching
-function my_deferred_acceptance2(m_prefs,f_prefs)
+function my_deferred_acceptance(m_prefs,f_prefs)
     #初期設定
     m = length(m_prefs)
     n = length(f_prefs)
