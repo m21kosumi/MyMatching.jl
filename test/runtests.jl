@@ -217,7 +217,7 @@ end
 
     @testset "many-to-one: Vector of Vectors" begin
         for d in matchings_many_to_one
-            s_prefs, c_prefs = mat2vecs.(d["s_prefs"], d["c_prefs"])
+            s_prefs, c_prefs = mat2vecs.([d["s_prefs"], d["c_prefs"]])
 
             # Default (Student proposal)
             s_matches, c_matches, indptr =
