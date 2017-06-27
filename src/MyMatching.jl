@@ -28,36 +28,44 @@ function my_deferred_acceptance(prop_prefs::Vector{Vector{Int}},
                     o_pref = resp_prefs[o] #生徒が希望する進学先の選好
                     o_matched = resp_matched[indptr[o]:indptr[o+1]-1]
                     if s in resp_prefs[o]
-                        if 0 in o_matched 
+                        if 0 in resp_matched[indptr[o]:indptr[o+1]-1] #定員に空きがある 
                             j = 1
                             while j <= caps[o]
-                                if !(o_matched[j] == 0)
+                                if !(resp_matched[indptr[o]+j-1] == 0)
                                     j += 1
+                                else
+                                    break
                                 end
-                                break
                             end
                             prop_matched[s] = o
                             resp_matched[indptr[o]+j-1] = s
                         else
                             a = 1
+                            permission = true
                             while !(s == o_pref[a])
                                 a +=1
-                            end
-                            b = copy(a)
-                            while b < length(o_pref) #sよりoの選好が低い生徒を探す
-                                b += 1
-                                if o_pref[b] == 0
-                                    break
+                                if o_pref[a] == 0
+                                permission  = false
+                                break
                                 end
-                                if prop_matched[o_pref[b]] == o #o_pref[b]はsのライバル
-                                    prop_matched[o_pref[b]] = 0
-                                    prop_matched[s] = o
-                                    c = 1
-                                    while !(resp_matched[indptr[o]+c-1] == o_pref[b]) 
-                                        c += 1
+                            end
+                            if permission
+                                b = copy(a)
+                                while b < length(o_pref) #sよりoの選好が低い生徒を探す
+                                    b += 1
+                                    if o_pref[b] == 0
+                                       break
                                     end
-                                    resp_matched[indptr[o]+c-1] = s
-                                    break
+                                    if prop_matched[o_pref[b]] == o #o_pref[b]はsのライバル
+                                        prop_matched[o_pref[b]] = 0
+                                        prop_matched[s] = o
+                                        c = 1
+                                        while !(resp_matched[indptr[o]+c-1] == o_pref[b]) 
+                                           c += 1
+                                        end
+                                        resp_matched[indptr[o]+c-1] = s
+                                        break
+                                    end
                                 end
                             end
                         end
