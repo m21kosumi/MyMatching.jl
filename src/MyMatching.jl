@@ -46,6 +46,9 @@ function my_deferred_acceptance(prop_prefs::Vector{Vector{Int}},
                             b = copy(a)
                             while b < length(o_pref) #sよりoの選好が低い生徒を探す
                                 b += 1
+                                if o_pref[b] == 0
+                                    break
+                                end
                                 if prop_matched[o_pref[b]] == o #o_pref[b]はsのライバル
                                     prop_matched[o_pref[b]] = 0
                                     prop_matched[s] = o
